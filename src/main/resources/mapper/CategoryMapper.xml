@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 对应CategoryMapper接口里的SQL方法 -->
+<mapper namespace="com.wangjinqiao.conveniencestore.mapper.CategoryMapper">
+
+    <!-- 查询所有分类 -->
+    <select id="findAll" resultType="com.wangjinqiao.conveniencestore.entity.Category">
+        SELECT id, name, created_at
+        FROM categories
+    </select>
+
+    <!-- 根据ID查询分类 -->
+    <select id="findById" resultType="com.wangjinqiao.conveniencestore.entity.Category">
+        SELECT id, name, created_at
+        FROM categories
+        WHERE id = #{id}
+    </select>
+
+    <!-- 新增分类 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO categories (name)
+        VALUES (#{name})
+    </insert>
+
+    <!-- 修改分类 -->
+    <update id="update">
+        UPDATE categories
+        SET name = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除分类 -->
+    <delete id="delete" >
+        DELETE FROM categories
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 实现ProductMapper接口里的SQL方法 -->
+<mapper namespace="com.wangjinqiao.conveniencestore.mapper.ProductMapper">
+
+    <!-- 查询所有商品 -->
+    <select id="findAll" resultType="com.wangjinqiao.conveniencestore.entity.Product">
+        SELECT id, category_id, name, selling_price, cost_price,
+               storage_condition, image_url, description, created_at, updated_at
+        FROM products
+    </select>
+
+    <!-- 根据ID查询商品 -->
+    <select id="findById" resultType="com.wangjinqiao.conveniencestore.entity.Product">
+        SELECT id, category_id, name, selling_price, cost_price,
+               storage_condition, image_url, description, created_at, updated_at
+        FROM products
+        WHERE id = #{id}
+    </select>
+
+    <!-- 根据分类ID查询商品 -->
+    <select id="findByCategoryId" resultType="com.wangjinqiao.conveniencestore.entity.Product">
+        SELECT id, category_id, name, selling_price, cost_price,
+               storage_condition, image_url, description, created_at, updated_at
+        FROM products
+        WHERE category_id = #{categoryId}
+    </select>
+
+    <!-- 新增商品 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO products (category_id, name, selling_price, cost_price,
+                              storage_condition, image_url, description)
+        VALUES (#{categoryId}, #{name}, #{sellingPrice}, #{costPrice},
+                #{storageCondition}, #{imageUrl}, #{description})
+    </insert>
+
+    <!-- 修改商品 -->
+    <update id="update">
+        UPDATE products
+        SET category_id = #{categoryId},
+            name = #{name},
+            selling_price = #{sellingPrice},
+            cost_price = #{costPrice},
+            storage_condition = #{storageCondition},
+            image_url = #{imageUrl},
+            description = #{description}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除商品 -->
+    <delete id="deleteById">
+        DELETE FROM products
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

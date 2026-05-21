@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 对应InventoryMapper接口里的SQL方法 -->
+<mapper namespace="com.wangjinqiao.conveniencestore.mapper.InventoryMapper">
+
+    <!-- 查询所有库存批次 -->
+    <select id="findAll" resultType="com.wangjinqiao.conveniencestore.entity.Inventory">
+        SELECT id, product_id, quantity, production_date,
+               expiry_days, description, created_at, updated_at
+        FROM inventories
+    </select>
+
+    <!-- 根据ID查询库存批次 -->
+    <select id="findById" resultType="com.wangjinqiao.conveniencestore.entity.Inventory">
+        SELECT id, product_id, quantity, production_date,
+               expiry_days, description, created_at, updated_at
+        FROM inventories
+        WHERE id = #{id}
+    </select>
+
+    <!-- 根据商品ID查询库存批次 -->
+    <select id="findByProductId" resultType="com.wangjinqiao.conveniencestore.entity.Inventory">
+        SELECT id, product_id, quantity, production_date,
+               expiry_days, description, created_at, updated_at
+        FROM inventories
+        WHERE product_id = #{productId}
+    </select>
+
+    <!-- 新增库存批次 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO inventories (product_id, quantity, production_date, expiry_days, description)
+        VALUES (#{productId}, #{quantity}, #{productionDate}, #{expiryDays}, #{description})
+    </insert>
+
+    <!-- 修改库存批次 -->
+    <update id="update">
+        UPDATE inventories
+        SET product_id = #{productId},
+            quantity = #{quantity},
+            production_date = #{productionDate},
+            expiry_days = #{expiryDays},
+            description = #{description}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除库存批次 -->
+    <delete id="deleteById">
+        DELETE FROM inventories
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
