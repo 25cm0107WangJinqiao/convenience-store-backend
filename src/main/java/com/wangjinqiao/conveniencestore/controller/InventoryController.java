@@ -49,4 +49,28 @@ public class InventoryController {
     public int deleteById(@PathVariable Long id) {
         return inventoryService.deleteById(id);
     }
+
+    // 入库 PUT /api/inventories/1/add-stock?quantity=10
+    @PutMapping("/{id}/add-stock")
+    public int addStock(@PathVariable Long id, @RequestParam int quantity) {
+        return inventoryService.addStock(id, quantity);
+    }
+
+    // 出库 PUT /api/inventories/1/reduce-stock?quantity=5
+    @PutMapping("/{id}/reduce-stock")
+    public int reduceStock(@PathVariable Long id, @RequestParam int quantity) {
+        return inventoryService.reduceStock(id, quantity);
+    }
+
+    // 查询低库存批次 GET /api/inventories/low-stock?threshold=10
+    @GetMapping("/low-stock")
+    public List<Inventory> findLowStock(@RequestParam int threshold) {
+        return inventoryService.findLowStock(threshold);
+    }
+
+    // 查询即将过期或已过期的批次 GET /api/inventories/expiring-soon
+    @GetMapping("/expiring-soon")
+    public List<Inventory> findExpiringSoon() {
+        return inventoryService.findExpiringSoon();
+    }
 }

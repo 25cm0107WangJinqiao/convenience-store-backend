@@ -51,4 +51,34 @@
         WHERE id = #{id}
     </delete>
 
+    <!-- 入库：增加库存数量 -->
+    <update id="addStock">
+        UPDATE inventories
+        SET quantity = quantity + #{quantity}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 出库：减少库存数量 -->
+    <update id="reduceStock">
+        UPDATE inventories
+        SET quantity = quantity - #{quantity}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 查询低库存批次 -->
+    <select id="findLowStock" resultType="com.wangjinqiao.conveniencestore.entity.Inventory">
+        SELECT id, product_id, quantity, production_date,
+               expiry_days, description, created_at, updated_at
+        FROM inventories
+        WHERE quantity &lt;= #{threshold}
+    </select>
+
+    <!-- 查询即将过期（3天内）或已过期的批次 -->
+    <select id="findExpiringSoon" resultType="com.wangjinqiao.conveniencestore.entity.Inventory">
+        SELECT id, product_id, quantity, production_date,
+               expiry_days, description, created_at, updated_at
+        FROM inventories
+        WHERE DATE_ADD(production_date, INTERVAL expiry_days DAY) &lt;= DATE_ADD(CURDATE(), INTERVAL 3 DAY)
+    </select>
+
 </mapper>

@@ -42,4 +42,24 @@ public class InventoryService {
     public int deleteById(Long id) {
         return inventoryMapper.deleteById(id);
     }
+
+    // 入库
+    public int addStock(Long id, int quantity) {
+        return inventoryMapper.addStock(id, quantity);
+    }
+
+    // 出库
+    public int reduceStock(Long id, int quantity) {
+        return inventoryMapper.reduceStock(id, quantity);
+    }
+
+    // 查询低库存批次
+    public List<Inventory> findLowStock(int threshold) {
+        return inventoryMapper.findLowStock(threshold);
+    }
+
+    // 查询即将过期或已过期的批次
+    public List<Inventory> findExpiringSoon() {
+        return inventoryMapper.findExpiringSoon();
+    }
 }
